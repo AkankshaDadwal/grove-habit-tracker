@@ -1,0 +1,380 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: Habit Tracker API
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: habits
+    description: Habit management
+  - name: logs
+    description: Daily habit completion logs
+  - name: stats
+    description: Statistics and dashboard
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+  /habits:
+    get:
+      operationId: listHabits
+      tags: [habits]
+      summary: List all habits
+      responses:
+        "200":
+          description: List of habits
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Habit"
+    post:
+      operationId: createHabit
+      tags: [habits]
+      summary: Create a new habit
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/HabitInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Habit"
+
+  /habits/{id}:
+    get:
+      operationId: getHabit
+      tags: [habits]
+      summary: Get a single habit
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Habit
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Habit"
+        "404":
+          description: Not found
+    patch:
+      operationId: updateHabit
+      tags: [habits]
+      summary: Update a habit
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/HabitUpdate"
+      responses:
+        "200":
+          description: Updated habit
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Habit"
+        "404":
+          description: Not found
+    delete:
+      operationId: deleteHabit
+      tags: [habits]
+      summary: Delete a habit
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+        "404":
+          description: Not found
+
+  /habits/{id}/logs:
+    get:
+      operationId: listHabitLogs
+      tags: [logs]
+      summary: Get completion logs for a habit (current year)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: List of log dates
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/HabitLog"
+    post:
+      operationId: logHabit
+      tags: [logs]
+      summary: Mark a habit as done for a date
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/HabitLogInput"
+      responses:
+        "201":
+          description: Log created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HabitLog"
+
+  /habits/{id}/logs/{date}:
+    delete:
+      operationId: unlogHabit
+      tags: [logs]
+      summary: Unmark a habit for a date
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: date
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Date string YYYY-MM-DD
+      responses:
+        "204":
+          description: Removed
+
+  /habits/{id}/stats:
+    get:
+      operationId: getHabitStats
+      tags: [stats]
+      summary: Get streak and stats for a habit
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Habit stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HabitStats"
+
+  /habits/{id}/grid:
+    get:
+      operationId: getHabitGrid
+      tags: [stats]
+      summary: Get full year contribution grid data for a habit (current year)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Grid data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/GridDay"
+
+  /dashboard:
+    get:
+      operationId: getDashboard
+      tags: [stats]
+      summary: Get today's summary across all habits
+      responses:
+        "200":
+          description: Dashboard summary
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Dashboard"
+
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+
+    Habit:
+      type: object
+      required: [id, name, color, createdAt]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        color:
+          type: string
+          description: Hex color code for the habit
+        description:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+
+    HabitInput:
+      type: object
+      required: [name, color]
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        color:
+          type: string
+          description: Hex color code
+        description:
+          type: string
+
+    HabitUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        color:
+          type: string
+        description:
+          type: string
+
+    HabitLog:
+      type: object
+      required: [id, habitId, date, completedAt]
+      properties:
+        id:
+          type: integer
+        habitId:
+          type: integer
+        date:
+          type: string
+          description: Date string YYYY-MM-DD
+        completedAt:
+          type: string
+
+    HabitLogInput:
+      type: object
+      required: [date]
+      properties:
+        date:
+          type: string
+          description: Date string YYYY-MM-DD
+
+    HabitStats:
+      type: object
+      required: [habitId, currentStreak, longestStreak, totalCompletions, completionRate30d]
+      properties:
+        habitId:
+          type: integer
+        currentStreak:
+          type: integer
+        longestStreak:
+          type: integer
+        totalCompletions:
+          type: integer
+        completionRate30d:
+          type: number
+          description: Completion percentage in last 30 days (0-100)
+        lastCompletedDate:
+          type: ["string", "null"]
+
+    GridDay:
+      type: object
+      required: [date, completed, level]
+      properties:
+        date:
+          type: string
+          description: YYYY-MM-DD
+        completed:
+          type: boolean
+        level:
+          type: integer
+          description: Intensity level 0-4 (0=none, 4=done, for future multi-count support)
+
+    DashboardHabit:
+      type: object
+      required: [id, name, color, completedToday, currentStreak]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        color:
+          type: string
+        completedToday:
+          type: boolean
+        currentStreak:
+          type: integer
+
+    Dashboard:
+      type: object
+      required: [date, totalHabits, completedToday, habits, longestActiveStreak]
+      properties:
+        date:
+          type: string
+        totalHabits:
+          type: integer
+        completedToday:
+          type: integer
+        longestActiveStreak:
+          type: integer
+        habits:
+          type: array
+          items:
+            $ref: "#/components/schemas/DashboardHabit"
