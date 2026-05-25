@@ -1,2 +1,136 @@
-# grove-habit-tracker
-Habit Tracker Track daily habits with a GitHub-style contribution grid  Add custom habits Mark done each day Visual streak calendar
+
+# 🌿 Grove — Habit Tracker
+
+Grove is a minimal, nature-inspired habit tracking app that helps you build daily routines and visualize your progress over time. Track streaks, log completions, and stay consistent — one day at a time.
+
+---
+
+## ✨ Features
+
+- **Daily Dashboard** — See all your habits for today at a glance. Mark them complete with one click.
+- **Streak Tracking** — Tracks your current streak and longest active streak with a flame indicator 🔥
+- **GitHub-style Progress Grid** — Visual heatmap of your habit history over the past year
+- **Habit Management** — Create, customize, and manage habits with custom colors and descriptions
+- **Habit Detail View** — Deep dive into individual habit history and stats
+- **Responsive Design** — Works on mobile and desktop
+- **Dark Mode Support** — Clean UI in both light and dark themes
+
+---
+
+## 🛠️ Tech Stack
+
+| Technology | Purpose |
+|---|---|
+| React 18 | Frontend UI |
+| TypeScript | Type safety |
+| Vite | Build tool & dev server |
+| Tailwind CSS | Styling |
+| Radix UI | Accessible UI components |
+| Framer Motion | Animations |
+| TanStack Query | Server state management |
+| React Hook Form + Zod | Form handling & validation |
+| Recharts | Data visualization |
+| date-fns | Date utilities |
+| Wouter | Client-side routing |
+| Lucide React | Icons |
+| Sonner | Toast notifications |
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+Make sure you have the following installed:
+- [Node.js](https://nodejs.org/) (v18 or higher)
+- [pnpm](https://pnpm.io/) (this project uses pnpm as the package manager)
+
+Install pnpm if you don't have it:
+```bash
+npm install -g pnpm
+```
+
+### Installation
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/AkankshaDadwal/grove-habit-tracker.git
+cd grove-habit-tracker
+```
+
+2. **Install dependencies**
+```bash
+pnpm install
+```
+
+3. **Start the development server**
+```bash
+pnpm dev
+```
+
+4. **Open in browser**
+```
+http://localhost:5173
+```
+
+### Build for Production
+
+```bash
+pnpm build
+```
+
+---
+
+## 📁 Project Structure
+
+```
+grove-habit-tracker/
+├── artifacts/
+│   └── habit-tracker/
+│       └── src/
+│           ├── components/       # Reusable UI components
+│           │   ├── habit-grid.tsx    # GitHub-style heatmap grid
+│           │   ├── habit-form.tsx    # Create/edit habit form
+│           │   └── layout.tsx        # App layout wrapper
+│           ├── pages/            # App pages
+│           │   ├── dashboard.tsx     # Today's habits view
+│           │   ├── habits.tsx        # All habits management
+│           │   └── habit-detail.tsx  # Single habit detail
+│           ├── hooks/            # Custom React hooks
+│           └── App.tsx           # Root component
+└── lib/                          # Shared libraries & API client
+```
+
+---
+
+## 📸 Screenshots
+
+> _Add screenshots of your app here once it's running_  
+> Tip: Take screenshots of the Dashboard, Habits page, and the progress grid — those show the most features.
+
+---
+
+## 🎯 What I Learned
+
+- Building a full-stack habit tracking app with React and TypeScript
+- Managing complex server state with TanStack Query
+- Creating GitHub-style contribution grid visualizations
+- Designing accessible, responsive UI with Radix UI + Tailwind CSS
+- Implementing streak logic and daily habit completion tracking
+
+---
+
+## 👩‍💻 Author
+
+**Akanksha Dadwal**  
+UI/UX & Graphic Designer  
+ 
+
+[![GitHub](https://img.shields.io/badge/GitHub-AkankshaDadwal-black?logo=github)](https://github.com/AkankshaDadwal)
+
+---
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
