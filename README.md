@@ -105,8 +105,13 @@ grove-habit-tracker/
 
 ## 📸 Screenshots
 
-> _Add screenshots of your app here once it's running_  
-> Tip: Take screenshots of the Dashboard, Habits page, and the progress grid — those show the most features.
+
+<img width="1832" height="795" alt="Screenshot 2026-05-25 133308" src="https://github.com/user-attachments/assets/dd34b80d-add7-40c2-bb24-475b020d54cd" />
+<img width="1285" height="786" alt="Screenshot 2026-05-25 133528" src="https://github.com/user-attachments/assets/87c1dc24-da5f-4b38-b5c6-8b6616e9e78a" />
+<img width="1527" height="607" alt="Screenshot 2026-05-25 133546" src="https://github.com/user-attachments/assets/2717dfc6-f996-429f-95f2-b57152e0446a" />
+<img width="1772" height="808" alt="Screenshot 2026-05-25 133457" src="https://github.com/user-attachments/assets/c4c88609-a909-4f09-b6a3-07f958a24f40" />
+
+
 
 ---
 
