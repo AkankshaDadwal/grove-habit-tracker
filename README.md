@@ -117,7 +117,7 @@ grove-habit-tracker/
 
 ## 🎯 What I Learned
 
-- Building a full-stack habit tracking app with React and TypeScript
+- Building a modern habit tracking application using React, TypeScript, and advanced frontend architecture.
 - Managing complex server state with TanStack Query
 - Creating GitHub-style contribution grid visualizations
 - Designing accessible, responsive UI with Radix UI + Tailwind CSS
@@ -128,7 +128,7 @@ grove-habit-tracker/
 ## 👩‍💻 Author
 
 **Akanksha Dadwal**  
-UI/UX & Graphic Designer  
+Frontend Developer & UI/UX Designer  
  
 
 [![GitHub](https://img.shields.io/badge/GitHub-AkankshaDadwal-black?logo=github)](https://github.com/AkankshaDadwal)
